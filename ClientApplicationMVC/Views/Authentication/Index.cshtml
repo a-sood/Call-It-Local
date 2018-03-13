@@ -1,0 +1,70 @@
+﻿<!--
+    This is the html page that opens when a user navigates or is redirected
+    to the log in page
+-->
+
+<script type="text/javascript" src="~/Scripts/Authentication/AuthenticationFunctions.js"></script>
+
+@{
+    ViewBag.Title = "Log In";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<style>
+    input[type=text], select {
+        border-radius: 4px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        padding: 6px;
+        width: 250px;
+    }
+
+    input[type=password], select {
+        border-radius: 4px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        padding: 6px;
+        width: 250px;
+    }
+</style>
+<!-- The remainder of this file is to be completed by students in milestone 2 -->
+<div class="row">
+    <div class="col-md-10">
+        @using (Html.BeginForm("AsIsLogin", "Authentication", FormMethod.Get,
+        new { id = "asIsLoginForm", onsubmit = "return validateLoginForm()" }))
+        {
+            <h4>Please enter your login credentials</h4>
+            <hr />
+            @Html.TextBox("usernameText", null, new { @placeholder = "username", @size = 200 })
+            <div id="usernameError" style="color:red"></div>
+            <br />
+            @Html.Password("passwordText", null, new { @placeholder = "password", @size = 200 })
+            <div id="passwordError" style="color:red"></div>
+            <br />
+            <input type="submit" value="Login" class="btn btn-default" />
+            <br />
+            <p style="color:red">@ViewBag.AsIsResponse</p>
+            <br />
+        }
+    </div>
+    <div class="col-md-10">
+
+        <h4>Create a new account</h4>
+        <hr />
+
+        <input type="button" value="Create Account" class="btn btn-default" onclick="location.href='@Url.Action("CreateAccount", "Authentication")'" />
+        
+
+    </div>
+   
+    <div class="col-md-10">
+        <div style="color:#008000">
+            @ViewBag.userCreationSuccess
+        </div>
+
+       
+    </div>
+</div>
+
+

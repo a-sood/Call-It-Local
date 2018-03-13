@@ -1,0 +1,104 @@
+﻿@model Messages.NServiceBus.Commands.CreateAccount
+<!--
+    This is the html page that opens when a user navigates
+    to the create an account page
+-->
+
+<script type="text/javascript" src="~/Scripts/Authentication/AuthenticationFunctions.js"></script>
+
+@{
+    ViewBag.Title = "Create Account";
+}
+
+<h2>@ViewBag.Title</h2>
+<p>@ViewBag.message</p>
+
+<style>
+    input[type=text], select {
+        border-radius: 4px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        padding: 6px;
+        width: 250px;
+    }
+
+    input[type=password], select {
+        border-radius: 4px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        padding: 6px;
+        width: 250px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-8">
+        @using (Html.BeginForm("CreateAccount", "Authentication", FormMethod.Post, new { @class = "form-horizontal", id = "createAccountForm", onsubmit = "return runthis()" }))
+        {
+            <div class="form-group">
+                @Html.Label("Email", new { @class = "col-md-2 control-label"})
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.email, new { id = "email" })
+                </div>
+            </div>
+            
+            <div class="form-group">
+                @Html.Label("Password", new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(model => model.password, new { id = "password" })
+                </div>
+            </div>
+                              
+            <div class="form-group">
+                @Html.Label("Username", new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.username, new { id = "username" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Phone", new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.phonenumber, new { id = "phone", placeholder= "123-456-7890"})
+                </div>
+            </div>
+                        
+            <div class="form-group">
+                @Html.Label("Type", new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.EnumDropDownListFor(model => model.type, new { @class = "form control" })
+                </div>
+            </div>
+           
+            
+            <div class="form-group">
+                @Html.Label("Address", new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.address, new { id = "address" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create Account" class="btn btn-default" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <div id="emailError" style="color:#FF0000"></div>
+                    <div id="passwordError" style="color:#FF0000"></div>
+                    <div id="phoneError" style="color:#FF0000"></div>
+                    <div id="usernameError" style="color:#FF0000"></div>
+                    <div id="addressError" style="color:#FF0000"></div>
+                </div>
+            </div>
+             <div style="color:#FF0000">
+                 @ViewBag.userCreationFailure
+             </div>
+
+        }
+    </div>
+</div>
+
+<!-- The remainder of this file is to be completed by students in milestone 2 -->
