@@ -25,8 +25,8 @@ function validateLoginForm() {
     }
 
     /* INVALID PASSWORD */
-    if (asIsLoginForm.passwordText.value.match(/[\W_]/)) {
-        document.getElementById("passwordError").innerHTML = "You can only use alphanumeric characters for a password";
+    if (asIsLoginForm.passwordText.value.match(/[^\w$!@_]/)) {
+        document.getElementById("passwordError").innerHTML = "You can only use alphanumeric, @, $, !, _ characters for a password";
         showPasswordError = true;
     }
 
@@ -75,8 +75,8 @@ function runthis() {
         document.getElementById("passwordError").innerHTML = "Password must be atleast 8 characters";
         response = false;
     }
-    else if (createAccountForm.password.value.match(/[\W_]/)) {
-        document.getElementById("passwordError").innerHTML = "You can only use alphanumeric characters for a password";
+    else if (createAccountForm.password.value.match(/[^\w$!@_]/)) {
+        document.getElementById("passwordError").innerHTML = "You can only use alphanumeric, @, $, !, _ characters for a password";
         response = false;
     }
     else {
@@ -112,8 +112,8 @@ function runthis() {
         document.getElementById("addressError").innerHTML = "Please enter an address";
         response = false;
     }
-    else if (createAccountForm.address.value.match(/[^a-zA-Z0-9_ ]/)) {
-        document.getElementById("addressError").innerHTML = "You can only use alphanumeric characters for address";
+    else if (createAccountForm.address.value.match(/[^\w .-]/)) {
+        document.getElementById("addressError").innerHTML = "You can not use invalid characters for address";
         response = false;
     }
     else {
