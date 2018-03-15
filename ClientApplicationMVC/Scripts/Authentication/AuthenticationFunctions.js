@@ -4,7 +4,6 @@
  * If acceptable, the method returns true, else it returns false.
  */
 function validateLoginForm() {
-    let regex = /\s/g;
     let showUsernameError, showPasswordError = false;
 
     /* EMPTY USERNAME */
@@ -20,9 +19,15 @@ function validateLoginForm() {
     }
 
     /* INVALID USERNAME */
-    if (!regex.test(asIsLoginForm.usernameText)) { // TODO: REGEX DOESN'T WORK
+    if (asIsLoginForm.usernameText.value.match(/[\W_]/)) {
+        document.getElementById("usernameError").innerHTML = "You can only use alphanumeric characters for a username";
         showUsernameError = true;
-        document.getElementById('usernameError').innerHTML = '*invalid username';
+    }
+
+    /* INVALID PASSWORD */
+    if (asIsLoginForm.passwordText.value.match(/[\W_]/)) {
+        document.getElementById("passwordError").innerHTML = "You can only use alphanumeric characters for a password";
+        showPasswordError = true;
     }
 
     /* ACCEPTED LOGIN INFO */
@@ -70,6 +75,10 @@ function runthis() {
         document.getElementById("passwordError").innerHTML = "Password must be atleast 8 characters";
         response = false;
     }
+    else if (createAccountForm.password.value.match(/[\W_]/)) {
+        document.getElementById("passwordError").innerHTML = "You can only use alphanumeric characters for a password";
+        response = false;
+    }
     else {
         document.getElementById("passwordError").innerHTML = "";
     }
@@ -82,8 +91,7 @@ function runthis() {
         document.getElementById("phoneError").innerHTML = "Please enter a valid phone number, format xxx-xxx-xxxx";
         response = false;
     }
-    else {
-            
+    else { 
         document.getElementById("phoneError").innerHTML = "";
     }
 
