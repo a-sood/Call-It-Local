@@ -33,6 +33,7 @@ namespace ClientApplicationMVC.Controllers
             }
         }
 
+        [HttpPost]
         public ActionResult AsIsLogin(string usernameText, string passwordText)
         {
             LogInRequest request = new LogInRequest(usernameText, passwordText);

@@ -55,13 +55,16 @@ namespace AuthenticationService.Communication
                 //Read the call to the API
                 ServiceBusRequest request = readUntilEOF();
 
-                ServiceBusResponse responseMessage = executeRequest(request);
-
-                sendToClient(responseMessage);
-
-                if (authenticated == false)
+                if (request != null)
                 {
-                    terminateConnection();
+                    ServiceBusResponse responseMessage = executeRequest(request);
+
+                    sendToClient(responseMessage);
+
+                    if (authenticated == false)
+                    {
+                        terminateConnection();
+                    }
                 }
             }
 
@@ -109,6 +112,11 @@ namespace AuthenticationService.Communication
                 {
                     Thread.Yield();// Yield this threads remaining timeslice to another process, this process does not appear to need it currently because the read timed out
                 }
+                catch (IOException)
+                {
+                    terminateConnection();
+                    return null;
+                }
             }
 
             //First we will receive the size of the message
@@ -127,6 +135,11 @@ namespace AuthenticationService.Communication
                 catch (SocketException)// This is thrown when the timeout occurs. The timeout is set in the constructor
                 {
                     Thread.Yield();// Yield this threads remaining timeslice to another process, this process does not appear to need it currently because the read timed out
+                }
+                catch (IOException)
+                {
+                    terminateConnection();
+                    return null;
                 }
             }
 
