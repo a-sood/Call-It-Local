@@ -1,5 +1,5 @@
 ﻿// To be completed by students in milestone 2
-/**
+/*
  * Validates the username and password entered into the login page.
  * If acceptable, the method returns true, else it returns false.
  */
