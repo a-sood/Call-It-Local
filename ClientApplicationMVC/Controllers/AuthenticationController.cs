@@ -85,8 +85,27 @@ namespace ClientApplicationMVC.Controllers
             /* Removing the - from the phone number */
             account.phonenumber = account.phonenumber.Replace("-", "");
 
-            AuthenticationDatabase db = AuthenticationDatabase.getInstance();
-            ServiceBusResponse response = db.insertNewUserAccount(account);
+            /** MISTAKE IN OUR OLD CODE! SHOULDN'T BE ABLE TO ACCESS AUTHENTICATION DB DIRECTLY !!! **/
+            //AuthenticationDatabase db = AuthenticationDatabase.getInstance();
+            //ServiceBusResponse response = db.insertNewUserAccount(account);
+            /** END OF MISTAKE **/
+
+            /** NEW CODE THAT PUBLISHES CREATE ACCOUNT EVENT TO MICROSERVICE **/
+            ServiceBusConnection connection = ConnectionManager.getConnectionObject(Globals.getUser());
+            CreateAccountRequest request = new CreateAccountRequest(account);
+
+            ServiceBusResponse response = null;
+
+            if (connection == null)
+            {
+                response = ConnectionManager.sendNewAccountInfo(request);
+            }
+            else
+            {
+                response = connection.sendNewAccountInfo(request);
+            }
+            /** END OF NEW CODE **/
+
             if(response.result) {
                 ViewBag.userCreationSuccess = "Successfully created the new user. You can log in using your new credentials now.";
                 return View("Index");
