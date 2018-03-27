@@ -87,8 +87,36 @@ namespace ClientApplicationMVC.Controllers
             GetCompanyInfoRequest infoRequest = new GetCompanyInfoRequest(new CompanyInstance(id));
             GetCompanyInfoResponse infoResponse = connection.getCompanyInfo(infoRequest);
             ViewBag.CompanyInfo = infoResponse.companyInfo;
+            string[] reviews = new string[] { "Review 1", "Review 2", "Review 3", "Review 4" };
+            ViewBag.Reviews = reviews;
 
             return View("DisplayCompany");
+        }
+
+        /// <summary>
+        /// This function is called when the client navigates to *hostname*/CompanyListings/ReviewCompany/*info*
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult ReviewCompany(string id)
+        {
+            if (Globals.isLoggedIn() == false)
+            {
+                return RedirectToAction("Index", "Authentication");
+            }
+            if ("".Equals(id))
+            {
+                return View("Index");
+            }
+
+            ServiceBusConnection connection = ConnectionManager.getConnectionObject(Globals.getUser());
+            if (connection == null)
+            {
+                return RedirectToAction("Index", "Authentication");
+            }
+
+            ViewBag.CompanyName = id;
+            return View("WriteReview");
         }
     }
 }

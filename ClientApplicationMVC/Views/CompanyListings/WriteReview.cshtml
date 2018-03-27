@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "Write Review";
+}
+
+<h2>Write a Review for @ViewBag.CompanyName</h2>
+
+    <select name="Stars">
+        <option>5 Stars</option>
+        <option>4 Stars</option>
+        <option>3 Stars</option>
+        <option>2 Stars</option>
+        <option>1 Star</option>
+    </select>
+
+<div style="height:100px">
+    <div style="width:400px; float:left">
+        <textarea placeholder="Enter your review here" rows="3"></textarea>
+    </div>
+    <div style="float:left">
+        <input type="button" value="Publish" onclick="location.href='@Url.Action("ReviewCompany", "CompanyListings",  new { id = ViewBag.CompanyName } )'" />
+    </div>
+</div>
+<br />

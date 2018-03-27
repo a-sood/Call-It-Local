@@ -16,7 +16,22 @@
     <p style="padding-left:4em;">@location</p>
     <br />
 }
-
+    <h4>@ViewBag.CompanyName's Reviews</h4>
+    <div style="height:300px; overflow-y: scroll; overflow-x:hidden; padding-left:1em; padding-right:1em;">
+        <br />
+        @foreach (string review in ViewBag.Reviews)
+        {
+            <div style="border-radius:5px; box-shadow:2px 2px 2px 2px black; background-color:gainsboro;">
+                <p style="padding-left:1em; font-size:16px;">Reviewer#7</p>
+                <p style="padding-left:2em;">stars: 4/5</p>
+                <p style="padding-left:2em;">description: @review</p>
+                <p style="padding-left:2em;">June 6 1978</p>
+            </div>
+            <br />
+        }
+    </div>
+    <input type="button" value="Write Review" onclick="location.href='@Url.Action("ReviewCompany", "CompanyListings",  new { id = ViewBag.CompanyName } )'" />
+    <br />
 <div style="height:100px">
     <h4>Start a conversation with @ViewBag.CompanyName</h4>
     <div style="width:400px; float:left">
