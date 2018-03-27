@@ -33,8 +33,8 @@ namespace CompanyDirectoryService.Handlers
         /// <returns>Nothing</returns>
         public Task Handle(AccountCreated message, IMessageHandlerContext context)
         {
-            //CompanyDirectoryServiceDatabase.getInstance().saveAsIsEcho(message);
-            Debug.consoleMsg("Account Created For " + message.username);
+            CompanyDirectoryServiceDatabase.getInstance().saveCompany(message);
+            Debug.consoleMsg("Account Recieved");
             return Task.CompletedTask;
         }
     }
