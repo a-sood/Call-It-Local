@@ -36,6 +36,12 @@
         @using (Html.BeginForm("CreateAccount", "Authentication", FormMethod.Post, new { @class = "form-horizontal", id = "createAccountForm", onsubmit = "return runthis()" }))
         {
             <div class="form-group">
+                @Html.Label("Name", new { @class = "col-md-2 control-label"})
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.name, new { id = "name" })
+                </div>
+            </div>
+            <div class="form-group">
                 @Html.Label("Email", new { @class = "col-md-2 control-label"})
                 <div class="col-md-10">
                     @Html.TextBoxFor(model => model.email, new { id = "email" })
@@ -86,6 +92,7 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
+                    <div id="nameError" style="color:#FF0000"></div>
                     <div id="emailError" style="color:#FF0000"></div>
                     <div id="passwordError" style="color:#FF0000"></div>
                     <div id="phoneError" style="color:#FF0000"></div>

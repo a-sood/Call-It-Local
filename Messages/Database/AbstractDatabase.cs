@@ -81,7 +81,7 @@ namespace Messages.Database
                 }
 
                 closeConnection();
-                connection = new MySqlConnection("SERVER=localhost;DATABASE=" + databaseName + ";UID=" + UID + ";AUTO ENLIST=false;PASSWORD=" + Password);
+                connection = new MySqlConnection("SERVER=35.192.140.37;DATABASE=" + databaseName + ";UID=" + UID + ";AUTO ENLIST=false;PASSWORD=" + Password);
             }
         }
 

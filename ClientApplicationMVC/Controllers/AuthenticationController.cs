@@ -81,6 +81,8 @@ namespace ClientApplicationMVC.Controllers
             account.password = account.password.Trim();
             account.username = account.username.Trim();
             account.address = account.address.Trim();
+            account.name = account.name.Trim();
+
 
             /* Removing the - from the phone number */
             account.phonenumber = account.phonenumber.Replace("-", "");

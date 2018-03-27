@@ -13,6 +13,8 @@ namespace Messages.NServiceBus.Commands
     [Serializable]
     public partial class CreateAccount : ICommand
     {
+
+        public string name { get; set; }
         /// <summary>
         /// The username of the new account
         /// </summary>

@@ -108,6 +108,18 @@ function runthis() {
         document.getElementById("usernameError").innerHTML = "";
     }
 
+    if (createAccountForm.name.value === "") {
+        document.getElementById("nameError").innerHTML = "Please enter a name";
+        response = false;
+    }
+    else if (createAccountForm.name.value.match(/[^\w ]/)) {
+        document.getElementById("nameError").innerHTML = "You can only use alphanumeric characters for a name";
+        response = false;
+    }
+    else {
+        document.getElementById("nameError").innerHTML = "";
+    }
+
     if (createAccountForm.address.value === "") {
         document.getElementById("addressError").innerHTML = "Please enter an address";
         response = false;
