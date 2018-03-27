@@ -105,7 +105,7 @@ namespace CompanyDirectoryService.Database
                     companies.Add(reader.GetString("companyName"));
                 }
                 
-                result.companyNames = (string[])companies.ToArray();
+                result.companyNames = (string[])companies.ToArray(typeof(string));
                 closeConnection();
             }
             else
@@ -151,7 +151,7 @@ namespace CompanyDirectoryService.Database
                     locations.Add(reader.GetString("location"));
                 }
 
-                result = new CompanyInstance(companyName, phoneNumber, email, (string[])locations.ToArray());
+                result = new CompanyInstance(companyName, phoneNumber, email, (string[])locations.ToArray(typeof(string)));
                 closeConnection();
             }
             else
