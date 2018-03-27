@@ -95,7 +95,7 @@ namespace CompanyDirectoryService.Database
             {
                 string query = @"SELECT * FROM company" +
                     @"WHERE companyName "+
-                    @" LIKE '%" + request.searchDeliminator + @"%' );";
+                    @" LIKE '%" + request.searchDeliminator + @"%' ;";
 
                 MySqlCommand command = new MySqlCommand(query, connection);
                 MySqlDataReader reader = command.ExecuteReader();
@@ -127,8 +127,8 @@ namespace CompanyDirectoryService.Database
                 string companyName = null, phoneNumber = null, email = null;
                 ArrayList locations = new ArrayList();
 
-                string query = @"SELECT * FROM company" +
-                    @"WHERE companyName='" + request.companyInfo + @"' );";
+                string query = @"SELECT * FROM company " +
+                    @"WHERE companyName='" + request.companyInfo + @"' ;";
                 
                 MySqlCommand command = new MySqlCommand(query, connection);
                 MySqlDataReader reader = command.ExecuteReader();
@@ -140,8 +140,8 @@ namespace CompanyDirectoryService.Database
                      email = (string)reader.GetString("email");
                 }
 
-                query = @"SELECT * FROM location" +
-                    @"WHERE companyName='" + request.companyInfo + @"' );";
+                query = @"SELECT * FROM location " +
+                    @"WHERE companyName='" + request.companyInfo + @"' ;";
 
                 command = new MySqlCommand(query, connection);
                 reader = command.ExecuteReader();
