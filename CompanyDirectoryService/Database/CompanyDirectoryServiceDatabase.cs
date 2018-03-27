@@ -93,7 +93,7 @@ namespace CompanyDirectoryService.Database
             CompanyList result = new CompanyList();
             if (openConnection() == true)
             {
-                string query = @"SELECT * FROM company" +
+                string query = @"SELECT * FROM company " +
                     @"WHERE companyName "+
                     @" LIKE '%" + request.searchDeliminator + @"%' ;";
 
@@ -106,6 +106,7 @@ namespace CompanyDirectoryService.Database
                 }
                 
                 result.companyNames = (string[])companies.ToArray(typeof(string));
+                reader.Close();
                 closeConnection();
             }
             else
@@ -128,7 +129,7 @@ namespace CompanyDirectoryService.Database
                 ArrayList locations = new ArrayList();
 
                 string query = @"SELECT * FROM company " +
-                    @"WHERE companyName='" + request.companyInfo + @"' ;";
+                    @"WHERE companyName='" + request.companyInfo.companyName + @"' ;";
                 
                 MySqlCommand command = new MySqlCommand(query, connection);
                 MySqlDataReader reader = command.ExecuteReader();
@@ -139,19 +140,20 @@ namespace CompanyDirectoryService.Database
                      phoneNumber = (string)reader.GetString("phonenumber");
                      email = (string)reader.GetString("email");
                 }
-
+                reader.Close();
                 query = @"SELECT * FROM location " +
-                    @"WHERE companyName='" + request.companyInfo + @"' ;";
+                    @"WHERE companyName='" + request.companyInfo.companyName + @"' ;";
 
                 command = new MySqlCommand(query, connection);
-                reader = command.ExecuteReader();
+                MySqlDataReader reader1 = command.ExecuteReader();
 
-                while (reader.Read())
+                while (reader1.Read())
                 {
-                    locations.Add(reader.GetString("location"));
+                    locations.Add(reader1.GetString("location"));
                 }
 
                 result = new CompanyInstance(companyName, phoneNumber, email, (string[])locations.ToArray(typeof(string)));
+                reader1.Close();
                 closeConnection();
             }
             else

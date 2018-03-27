@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Database\CompanyDirectoryServiceDatabase.cs" />
+    <Compile Include="Handlers\CompanyInfoHandler.cs" />
     <Compile Include="Handlers\CompanySearchHandler.cs" />
     <Compile Include="Handlers\CreateAccountEventHandler.cs" />
     <Compile Include="Program.cs" />
