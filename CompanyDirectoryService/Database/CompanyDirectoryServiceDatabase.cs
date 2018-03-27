@@ -80,15 +80,15 @@ namespace CompanyDirectoryService.Database
                 }
             } catch(MySqlException e)
             {
-                Debug.consoleMsg("SQL Exception Occurred:" + e.Message);
+                Debug.consoleMsg("SQL Exception Occurred: " + e.Message);
             }
         }
 
         /// <summary>
-        /// Saves the company to the database
+        /// Gets the company list from the database
         /// </summary>
         /// <param name="request">Information about the search request</param>
-        public CompanyList searchCompany(CompanySearchRequest request)
+        public CompanyList SearchCompany(CompanySearchRequest request)
         {
             CompanyList result = new CompanyList();
             if (openConnection() == true)
@@ -114,7 +114,53 @@ namespace CompanyDirectoryService.Database
             }
             return result;
         }
-}
+
+        /// <summary>
+        /// Gets the company information from the database
+        /// </summary>
+        /// <param name="request">Information about the search request</param>
+        public CompanyInstance GetCompanyInfo (GetCompanyInfoRequest request)
+        {
+            CompanyInstance result = null;
+            if (openConnection() == true)
+            {
+                string companyName = null, phoneNumber = null, email = null;
+                ArrayList locations = new ArrayList();
+
+                string query = @"SELECT * FROM company" +
+                    @"WHERE companyName='" + request.companyInfo + @"' );";
+                
+                MySqlCommand command = new MySqlCommand(query, connection);
+                MySqlDataReader reader = command.ExecuteReader();
+               
+                if (reader.Read())
+                {
+                     companyName = (string)reader.GetString("companyName");
+                     phoneNumber = (string)reader.GetString("phonenumber");
+                     email = (string)reader.GetString("email");
+                }
+
+                query = @"SELECT * FROM location" +
+                    @"WHERE companyName='" + request.companyInfo + @"' );";
+
+                command = new MySqlCommand(query, connection);
+                reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    locations.Add(reader.GetString("location"));
+                }
+
+                result = new CompanyInstance(companyName, phoneNumber, email, (string[])locations.ToArray());
+                closeConnection();
+            }
+            else
+            {
+                Debug.consoleMsg("Unable to connect to database");
+            }
+            return result;
+        }
+    }
 
 
 
