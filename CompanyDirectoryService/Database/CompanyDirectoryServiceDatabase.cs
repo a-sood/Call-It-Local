@@ -48,32 +48,39 @@ namespace CompanyDirectoryService.Database
         /// <param name="account">New Account Information</param>
         public void saveCompany(AccountCreated account)
         {
-            if (account.type != AccountType.business)
+            try
             {
-                Debug.consoleMsg("Not a business account");
-                return;
-            }
-            if (openConnection() == true)
+                Debug.consoleMsg("Name:" + account.name + " Email:" + account.email);
+                if (account.type != AccountType.business)
+                {
+                    Debug.consoleMsg("Not a business account");
+                    return;
+                }
+                if (openConnection() == true)
+                {
+                    string query = @"INSERT INTO company(companyName, phonenumber, email)" +
+                        @"VALUES('" + account.name +
+                        @"', '" + account.phonenumber + @"', '" + account.email + @"');";
+
+                    MySqlCommand command = new MySqlCommand(query, connection);
+                    command.ExecuteNonQuery();
+
+                    query = @"INSERT INTO location(companyName, location)" +
+                        @"VALUES('" + account.name +
+                        @"', '" + account.address + @"');";
+
+                    command = new MySqlCommand(query, connection);
+                    command.ExecuteNonQuery();
+
+                    closeConnection();
+                }
+                else
+                {
+                    Debug.consoleMsg("Unable to connect to database");
+                }
+            } catch(MySqlException e)
             {
-                string query = @"INSERT INTO companydirectoryservicedb(companyName, phonenumber, email)" +
-                    @"VALUES('" + account.name +
-                    @"', '" + account.phonenumber + @"', '" + account.email + @"');";
-
-                MySqlCommand command = new MySqlCommand(query, connection);
-                command.ExecuteNonQuery();
-
-                query = @"INSERT INTO location(companyName, location)" +
-                    @"VALUES('" + account.name +
-                    @"', '" + account.address + @"');";
-
-                command = new MySqlCommand(query, connection);
-                command.ExecuteNonQuery();
-
-                closeConnection();
-            }
-            else
-            {
-                Debug.consoleMsg("Unable to connect to database");
+                Debug.consoleMsg("SQL Exception Occurred:" + e.Message);
             }
         }
 
@@ -86,8 +93,8 @@ namespace CompanyDirectoryService.Database
             CompanyList result = new CompanyList();
             if (openConnection() == true)
             {
-                string query = @"SELECT * FROM companydirectoryservicedb" +
-                    @"WHERE '" + account.name +
+                string query = @"SELECT * FROM company" +
+                    @"WHERE companyName "+
                     @" LIKE '%" + request.searchDeliminator + @"%' );";
 
                 MySqlCommand command = new MySqlCommand(query, connection);

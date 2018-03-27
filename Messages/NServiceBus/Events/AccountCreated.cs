@@ -13,6 +13,7 @@ namespace Messages.NServiceBus.Events
     {
         public AccountCreated(CreateAccount newAcct)
         {
+            name = newAcct.name;
             username = newAcct.username;
             password = newAcct.password;
             address = newAcct.address;

@@ -60,7 +60,7 @@ namespace CompanyDirectoryService
             routing.RegisterPublisher(typeof(AccountCreated), "Authentication");
 
             //Register to the CompanySearchRequest event published by the Authentication endpoint
-            routing.RegisterPublisher(typeof(CompanySearchRequest), "Authentication");
+            //routing.RegisterPublisher(typeof(CompanySearchRequest), "Authentication");
 
             //Start the endpoint with the configuration defined above. It should be noted that any changes made to the endpointConfiguration after an endpoint is instantiated will not apply to any endpoints that have already been instantiated
             var endpointInstance = await Endpoint.Start(endpointConfiguration).ConfigureAwait(false);
