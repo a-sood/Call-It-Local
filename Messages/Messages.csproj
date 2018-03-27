@@ -50,6 +50,8 @@
     <Compile Include="Database\Table.cs" />
     <Compile Include="DataTypes\Database\CompanyDirectory\CompanyInstance.cs" />
     <Compile Include="DataTypes\Database\CompanyDirectory\CompanyList.cs" />
+    <Compile Include="DataTypes\Database\ReviewService\ReviewInstance.cs" />
+    <Compile Include="DataTypes\Database\ReviewService\ReviewList.cs" />
     <Compile Include="DataTypes\Enums.cs" />
     <Compile Include="DataTypes\SharedData.cs" />
     <Compile Include="Debug\Debug.cs" />
@@ -69,6 +71,10 @@
     <Compile Include="ServiceBusRequest\Echo\EchoServiceRequest.cs" />
     <Compile Include="ServiceBusRequest\Echo\Requests\AsIsEchoRequest.cs" />
     <Compile Include="ServiceBusRequest\Echo\Requests\ReverseEchoRequest.cs" />
+    <Compile Include="ServiceBusRequest\ReviewService\Requests\GetCompanyReviewsRequest.cs" />
+    <Compile Include="ServiceBusRequest\ReviewService\Requests\SaveCompanyReviewRequest.cs" />
+    <Compile Include="ServiceBusRequest\ReviewService\Responses\GetCompanyReviewsResponse.cs" />
+    <Compile Include="ServiceBusRequest\ReviewService\ReviewServiceRequest.cs" />
     <Compile Include="ServiceBusRequest\ServiceBusRequest.cs" />
     <Compile Include="ServiceBusRequest\ServiceBusResponse.cs" />
   </ItemGroup>

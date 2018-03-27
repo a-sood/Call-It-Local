@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ReviewService.Handler
+namespace Messages.DataTypes.Database.ReviewService
 {
-    class GetCompanyReview
+    public partial class ReviewList
     {
+        List<ReviewInstance> List { get; set; }
     }
 }
