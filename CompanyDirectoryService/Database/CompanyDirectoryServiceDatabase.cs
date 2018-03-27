@@ -93,10 +93,10 @@ namespace CompanyDirectoryService.Database
             CompanyList result = new CompanyList();
             if (openConnection() == true)
             {
-                string query = @"SELECT * FROM company" +
+                string query = @"SELECT * FROM company " +
                     @"WHERE companyName "+
-                    @" LIKE '%" + request.searchDeliminator + @"%' );";
-
+                    @" LIKE '%" + request.searchDeliminator + @"%';";
+                Debug.consoleMsg(query);
                 MySqlCommand command = new MySqlCommand(query, connection);
                 MySqlDataReader reader = command.ExecuteReader();
                 ArrayList companies = new ArrayList();
@@ -105,7 +105,8 @@ namespace CompanyDirectoryService.Database
                     companies.Add(reader.GetString("companyName"));
                 }
                 
-                result.companyNames = (string[])companies.ToArray();
+                result.companyNames = (string[])companies.ToArray(typeof(string));
+                reader.Close();
                 closeConnection();
             }
             else

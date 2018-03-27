@@ -236,12 +236,14 @@ namespace ClientApplicationMVC.Models
         /** This needs to be done by us - Anil**/
         public CompanySearchResponse searchCompanyByName(CompanySearchRequest request)
         {
-            return null;
+            send(request);
+            return (CompanySearchResponse)readUntilEOF();
         }
         /** This needs to be done by us - Anil**/
         public GetCompanyInfoResponse getCompanyInfo(GetCompanyInfoRequest request)
         {
-            return null;
+            send(request);
+            return (GetCompanyInfoResponse)readUntilEOF();
         }
         
     }

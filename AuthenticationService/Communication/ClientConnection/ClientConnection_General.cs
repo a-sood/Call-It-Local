@@ -16,6 +16,7 @@ using System.Security.Authentication;
 using System.Text;
 using System.Threading;
 using System.Security.Cryptography.X509Certificates;
+using Messages.ServiceBusRequest.CompanyDirectory;
 
 namespace AuthenticationService.Communication
 {
@@ -86,6 +87,8 @@ namespace AuthenticationService.Communication
                     return authenticationRequest((AuthenticationServiceRequest)request);
                 case (Service.Echo):
                     return echoRequest((EchoServiceRequest)request);
+                case (Service.CompanyDirectory):
+                    return directoryRequest((CompanyDirectoryServiceRequest)request);
                 default:
                     return new ServiceBusResponse(false, "Error: Invalid request. Did not specify a valid service type. Specified type was: " + request.serviceRequested.ToString());
             }
