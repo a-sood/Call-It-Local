@@ -121,10 +121,10 @@ namespace AuthenticationService
         /// The server will not be able to run properly unless this variable is properly set.
         /// </summary>
 
-        //private const string certificateLocation = "C:\\Users\\juan\\source\\repos\\Call It Local\\Certificate\\SENG401TenYears.pfx";
+        private const string certificateLocation = "C:\\Users\\juan\\source\\repos\\Call It Local\\Certificate\\SENG401TenYears.pfx";
         //"C:\\Users\\juan\\source\\repos\\Call It Local\\Certificate\\SENG401TenYears.pfx";
         // For Deployment --- private const string certificateLocation = "C:\\Users\\Public\\Documents\\Certificate\\SENG401TenYears.pfx";
         //private const string certificateLocation = "C:\\Users\\Bailey\\Desktop\\Reports Textbooks\\Course\\SENG 401\\ProjectSkeleton\\ProjectSkeleton\\Certificate\\SENG401TenYears.pfx";
-        private const string certificateLocation = "C:\\Users\\Anil Sood\\Source\\repos\\Call It Local\\Certificate\\SENG401TenYears.pfx";
+        //private const string certificateLocation = "C:\\Users\\Anil Sood\\Source\\repos\\Call It Local\\Certificate\\SENG401TenYears.pfx";
     }
 }
