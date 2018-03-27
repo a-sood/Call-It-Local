@@ -21,6 +21,7 @@ namespace Messages.NServiceBus.Events
             type = newAcct.type;
         }
 
+        public string name { get; set; }
         /// <summary>
         /// New username
         /// </summary>

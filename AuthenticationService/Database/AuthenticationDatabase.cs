@@ -43,10 +43,48 @@ namespace AuthenticationService.Database
             string message = "";
             if(openConnection() == true)
             {
-                string query = @"INSERT INTO user(username, password, address, phonenumber, email, type) " +
-                    @"VALUES('" + accountInfo.username + @"', '" + accountInfo.password + 
-                    @"', '" + accountInfo.address + @"', '" + accountInfo.phonenumber + 
-                    @"', '" + accountInfo.email + @"', '" + accountInfo.type.ToString() + @"');";
+                if (accountInfo.type == Messages.DataTypes.AccountType.business)
+                {
+                    string nameQuery = @"SELECT name FROM user WHERE name = " +
+                    @"'" + accountInfo.name + @"';";
+
+                    try
+                    {
+                        MySqlCommand nameCommand = new MySqlCommand(nameQuery, connection);
+                        MySqlDataReader nameDataReader = nameCommand.ExecuteReader();
+                        if(nameDataReader.Read())
+                        {
+                            result = false;
+                            message = "This company name already exists in the database";
+                            nameDataReader.Close();
+                            return new ServiceBusResponse(result, message);
+                        }
+                        nameDataReader.Close();
+                    }
+                    catch (MySqlException e)
+                    {
+                        Messages.Debug.consoleMsg("Unable to complete read company name from the database" +
+                            " Error :" + e.Number + e.Message);
+                        Messages.Debug.consoleMsg("The query was:" + nameQuery);
+                        message = e.Message;
+                        closeConnection();
+
+                        return new ServiceBusResponse(result, message);
+                    }
+                    catch (Exception e)
+                    {
+                        Messages.Debug.consoleMsg("Unable to complete read company name from the database." +
+                            " Error:" + e.Message);
+                        message = e.Message;
+                        closeConnection();
+                        return new ServiceBusResponse(result, message);
+                    }
+                }
+             
+                string query = @"INSERT INTO user(name, username, password, address, phonenumber, email, type) " +
+                @"VALUES('" + accountInfo.name + @"', '"+ accountInfo.username + @"', '" + accountInfo.password +
+                @"', '" + accountInfo.address + @"', '" + accountInfo.phonenumber +
+                @"', '" + accountInfo.email + @"', '" + accountInfo.type.ToString() + @"');";
 
                 try
                 {
@@ -54,7 +92,7 @@ namespace AuthenticationService.Database
                     command.ExecuteNonQuery();
                     result = true;
                 }
-                catch(MySqlException e)
+                catch (MySqlException e)
                 {
                     Messages.Debug.consoleMsg("Unable to complete insert new user into database." +
                         " Error :" + e.Number + e.Message);
@@ -71,6 +109,7 @@ namespace AuthenticationService.Database
                 {
                     closeConnection();
                 }
+                
             }
             else
             {
@@ -153,6 +192,14 @@ namespace AuthenticationService.Database
                     "user",
                     new Column[]
                     {
+                        new Column
+                        (
+                            "name", "VARCHAR(50)",
+                            new string[]
+                            {
+                                "NOT NULL",
+                            }, false
+                        ),
                         new Column
                         (
                             "username", "VARCHAR(50)",
