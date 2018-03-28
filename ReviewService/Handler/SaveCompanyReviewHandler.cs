@@ -45,26 +45,30 @@ namespace ReviewService.Handler
         /// <returns>The response to be sent back to the calling process</returns>
         public async Task HandleAsync(SaveCompanyReviewRequest message, IMessageHandlerContext context)
         {
-            Debug.consoleMsg("SAVE REVIEW: " + message.review.CompanyName);
+            ServiceBusResponse response;
+            Debug.consoleMsg("SAVE REVIEW FOR: " + message.review.CompanyName + " REVIEWED BY: " + message.review.UserName);
             //Save the company review
 
-            ServiceBusResponse response = new ServiceBusResponse(false, "Demo");
+            try
+            {
+                ReviewWrapper review = new ReviewWrapper(message.review);
 
-            ReviewWrapper review = new ReviewWrapper(message.review);
+                var serializer = new JavaScriptSerializer();
+                var json_review = serializer.Serialize(review);
 
-            var serializer = new JavaScriptSerializer();
-            var json_review = serializer.Serialize(review);
-            Debug.consoleMsg("JSON: \n" + json_review);
+                StringContent post_content = new StringContent(json_review, Encoding.UTF8, "application/json");
 
-            StringContent post_content = new StringContent(json_review, Encoding.UTF8, "application/json");
-            Debug.consoleMsg("POST CONTENT:" + post_content.ToString());
+                var httpresponse = await client.PostAsync("http://35.230.15.112/Reviews/SaveCompanyReview/", post_content);
+                var responseString = await httpresponse.Content.ReadAsStringAsync();
 
-            var httpresponse = await client.PostAsync("http://35.230.15.112/Reviews/SaveCompanyReview/", post_content);
-            Debug.consoleMsg(httpresponse.RequestMessage.ToString());
-
-            var responseString = await httpresponse.Content.ReadAsStringAsync();
-            Debug.consoleMsg("RESPONSE:\n" + responseString);
-
+                if (httpresponse.IsSuccessStatusCode)
+                    response = new ServiceBusResponse(false, "Review Published Successfully");
+                else
+                    response = new ServiceBusResponse(false, "Review Publish Failed");
+            } catch(Exception e)
+            {
+                response = new ServiceBusResponse(false, e.Message);
+            }
             await context.Reply(response);
         }
     }
