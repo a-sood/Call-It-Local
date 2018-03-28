@@ -10,7 +10,8 @@ using Messages.ServiceBusRequest.ReviewService.Requests;
 using Messages.ServiceBusRequest.ReviewService.Responses;
 using Messages.DataTypes.Database.ReviewService;
 using System.Net.Http;
-
+using Messages;
+using System.Web.Script.Serialization;
 
 namespace ReviewService.Handler
 {
@@ -25,26 +26,34 @@ namespace ReviewService.Handler
         /// is an expensive call, and there is no need to instantiate a new logger every time a handler is created.
         static ILog log = LogManager.GetLogger<GetCompanyReviewsRequest>();
 
+        public async Task Handle(GetCompanyReviewsRequest message, IMessageHandlerContext context)
+        {
+            await HandleAsync(message, context);
+        }
+
         /// <summary>
         /// Saves the echo to the database, reverses the data, and returns it back to the calling endpoint.
         /// </summary>
         /// <param name="message">Information about the echo</param>
         /// <param name="context">Used to access information regarding the endpoints used for this handle</param>
         /// <returns>The response to be sent back to the calling process</returns>
-        public async Task Handle(GetCompanyReviewsRequest message, IMessageHandlerContext context)
+        public async Task HandleAsync(GetCompanyReviewsRequest message, IMessageHandlerContext context)
         {
-            //Search the company with the name
+                Debug.consoleMsg("GET REVIEWS: " + message.companyName);
+                //Search the company with the name
 
-            var rString = await client.GetStringAsync("http://35.230.15.112//Reviews/GetCompanyReviews/{\"companyName\":\"" + message.companyName +"\"}");
-            /** ADD CODE HERE  --- Anil **/
-            ReviewList list = new ReviewList();
-            list.List = new List<ReviewInstance>();
-            GetCompanyReviewsResponse response = new GetCompanyReviewsResponse(false, "Demo", list);
-            
-            /*******/
+                var rString = await client.GetStringAsync("http://35.230.15.112//Reviews/GetCompanyReviews/{\"companyName\":\"" + message.companyName + "\"}");
+                Debug.consoleMsg("RESPONSE: " + rString);
 
-
-            await context.Reply(response);
+                var serializer = new JavaScriptSerializer();
+                List<ReviewInstance> read_review = (List<ReviewInstance>)serializer.Deserialize<List<ReviewInstance>>(rString);
+                foreach (ReviewInstance r in read_review)
+                {
+                    Debug.consoleMsg("RESPONSE: " + r);
+                }
+                ReviewList list = new ReviewList(read_review);
+                GetCompanyReviewsResponse response = new GetCompanyReviewsResponse(false, "Demo", list);
+                await context.Reply(response);
         }
     }
 }

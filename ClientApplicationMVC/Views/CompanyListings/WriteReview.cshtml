@@ -4,40 +4,22 @@
 }
 
 <h2>Write a Review for @ViewBag.CompanyName</h2>
-<style>
-    input[type=select], select {
-        border-radius: 4px;
-        box-sizing: border-box;
-        border: 1px solid #ccc;
-        padding: 6px;
-        width: 80px;
-    }
-</style>
-<hr/>
 
-    
-<div class="row">
-    <div class="col-md-10">
-        <textarea style="width:350px" id="textarea" placeholder="Enter your review here" rows="5"></textarea>
-    </div>
-</div>
-<br/>
-<div class="row">
-    <div style="float:left" class="col-md-1">
-        <select name="Stars">
-            <option>5 Stars</option>
-            <option>4 Stars</option>
-            <option>3 Stars</option>
-            <option>2 Stars</option>
-            <option>1 Star</option>
-        </select>
-    </div>
-</div>
-<br />
-<div class="row">
-    <div style="float:left" class="col-md-1">
-        <input class="btn btn-default" type="button" value="Publish" onclick="location.href='@Url.Action("ReviewCompany", "CompanyListings",  new { id = ViewBag.CompanyName } )'" />
-    </div>
-</div>
+    <select id="selector"; name="Stars" >
+        <option>5 Stars</option>
+        <option>4 Stars</option>
+        <option>3 Stars</option>
+        <option>2 Stars</option>
+        <option>1 Star</option>
+    </select>
 
+<div style="height:100px">
+    <div style="width:400px; float:left">
+        <textarea value="@ViewBag.reviewText" placeholder="Enter your review here" rows="3" ></textarea>
+    </div>
+    <div style="float:left">
+        <input type="button" value="Publish" onclick="location.href='@Url.Action("PublishReview", "CompanyListings",  new { companyName = ViewBag.CompanyName, reviewContent = "REVIEW CONTENT HERE", stars = 5 } )'" />
+    </div>
+</div>
+<p style="font-size:20px;">@ViewBag.Response</p>
 <br />

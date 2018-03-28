@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace Messages.DataTypes.Database.ReviewService
 {
-    [Serializable]
-    public partial class ReviewList
+    public class ReviewWrapper
     {
-        public List<ReviewInstance> List { get; set; }
-
-        public ReviewList(List<ReviewInstance> reviews)
+        public ReviewWrapper(ReviewInstance review)
         {
-            this.List = reviews;
+            this.review = review;
         }
+
+        public ReviewInstance review { get; set; } 
     }
 }

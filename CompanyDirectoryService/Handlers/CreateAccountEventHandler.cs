@@ -24,6 +24,11 @@ namespace CompanyDirectoryService.Handlers
         /// is an expensive call, and there is no need to instantiate a new logger every time a handler is created.
         static ILog log = LogManager.GetLogger<AccountCreated>();
 
+        public async Task Handle(AccountCreated message, IMessageHandlerContext context)
+        {
+            await HandleAsync(message, context);
+        }
+
         /// <summary>
         /// Saves the echo to the database
         /// This method will be called by the NServiceBus framework when an event of type "AsIsEchoEvent" is published.
@@ -31,7 +36,7 @@ namespace CompanyDirectoryService.Handlers
         /// <param name="message">Information about the echo</param>
         /// <param name="context"></param>
         /// <returns>Nothing</returns>
-        public Task Handle(AccountCreated message, IMessageHandlerContext context)
+        public Task HandleAsync(AccountCreated message, IMessageHandlerContext context)
         {
             CompanyDirectoryServiceDatabase.getInstance().saveCompany(message);
             Debug.consoleMsg("Account Recieved");

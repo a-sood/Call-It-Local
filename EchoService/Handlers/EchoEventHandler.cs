@@ -23,6 +23,11 @@ namespace EchoService.Handlers
         /// is an expensive call, and there is no need to instantiate a new logger every time a handler is created.
         static ILog log = LogManager.GetLogger<AsIsEchoEvent>();
 
+        public async Task Handle(AsIsEchoEvent message, IMessageHandlerContext context)
+        {
+            await HandleAsync(message, context);
+        }
+
         /// <summary>
         /// Saves the echo to the database
         /// This method will be called by the NServiceBus framework when an event of type "AsIsEchoEvent" is published.
@@ -30,7 +35,7 @@ namespace EchoService.Handlers
         /// <param name="message">Information about the echo</param>
         /// <param name="context"></param>
         /// <returns>Nothing</returns>
-        public Task Handle(AsIsEchoEvent message, IMessageHandlerContext context)
+        public Task HandleAsync(AsIsEchoEvent message, IMessageHandlerContext context)
         {
             EchoServiceDatabase.getInstance().saveAsIsEcho(message);
             return Task.CompletedTask;

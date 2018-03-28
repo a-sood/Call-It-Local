@@ -9,6 +9,8 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Messages.ServiceBusRequest.ReviewService.Requests;
 using Messages.ServiceBusRequest.ReviewService.Responses;
+using Messages.DataTypes.Database.ReviewService;
+using Messages.ServiceBusRequest;
 
 namespace ClientApplicationMVC.Controllers
 {
@@ -120,8 +122,40 @@ namespace ClientApplicationMVC.Controllers
             {
                 return RedirectToAction("Index", "Authentication");
             }
-
+            ViewBag.stars = 5;
             ViewBag.CompanyName = id;
+            return View("WriteReview");
+        }
+
+        /// <summary>
+        /// This function is called when the client navigates to *hostname*/CompanyListings/ReviewCompany/*info*
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult PublishReview(string companyName, string reviewContent, int stars)
+        {
+            if (Globals.isLoggedIn() == false)
+            {
+                return RedirectToAction("Index", "Authentication");
+            }
+            if ("".Equals(companyName) || "".Equals(stars))
+            {
+                return View("Index");
+            }
+
+            ServiceBusConnection connection = ConnectionManager.getConnectionObject(Globals.getUser());
+            if (connection == null)
+            {
+                return RedirectToAction("Index", "Authentication");
+            }
+
+            long time = DateTimeOffset.Now.ToUnixTimeSeconds();
+            string username = Globals.getUser();
+            ReviewInstance review = new ReviewInstance(companyName, reviewContent, stars, time.ToString(), username);
+            SaveCompanyReviewRequest saveRequest = new SaveCompanyReviewRequest(review);
+            ServiceBusResponse response = connection.saveCompanyReview(saveRequest);
+            
+            ViewBag.Response = response.response;
             return View("WriteReview");
         }
     }

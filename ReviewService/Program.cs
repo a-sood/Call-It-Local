@@ -64,13 +64,16 @@ namespace ReviewService
             var endpointInstance = await Endpoint.Start(endpointConfiguration).ConfigureAwait(false);
 
             Debug.consoleMsg("Press Enter to exit.");
+
+            /** PUT THIS BACK **/
             string entry;
 
             do
             {
                 entry = Console.ReadLine();
             } while (!entry.Equals(""));
-            
+            /** END **/
+
             await endpointInstance.Stop().ConfigureAwait(false);
 
         }

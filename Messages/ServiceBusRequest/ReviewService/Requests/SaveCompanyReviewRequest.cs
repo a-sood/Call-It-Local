@@ -11,7 +11,7 @@ namespace Messages.ServiceBusRequest.ReviewService.Requests
     public class SaveCompanyReviewRequest : ReviewServiceRequest
     {
         public SaveCompanyReviewRequest(ReviewInstance review)
-            : base(ReviewRequest.GetReviews)
+            : base(ReviewRequest.SaveReview)
         {
             this.review = review;
         }
