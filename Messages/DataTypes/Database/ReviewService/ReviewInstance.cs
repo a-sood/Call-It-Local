@@ -3,37 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NServiceBus;
-    
+
 namespace Messages.DataTypes.Database.ReviewService
 {
     [Serializable]
-    public partial class ReviewInstance
+    public class ReviewInstance
     {
+        public ReviewInstance() { }
 
-        public ReviewInstance(string companyName, string username, string description, int timestamp, int stars)
+        public ReviewInstance(string company, string content, int stars, string time, string username)
         {
-            this.CompanyName = companyName;
-            this.UserName = username;
-            this.Description = description;
-            this.Timestamp = timestamp;
+            this.CompanyName = company;
+            this.Review = content;
             this.Stars = stars;
+            this.TimeStamp = time;
+            this.UserName = username;
         }
 
-    }
+        public string CompanyName { get; set; }
+        public string UserName { get; set; }
+        public string Review { get; set; }
+        public int Stars { get; set; }
+        public string TimeStamp { get; set; }
 
-    public partial class ReviewInstance
-    {
-    
-        public String Description { get; set; } = null;
-
-        public int Stars { get; set; } = 0;
-
-  
-        public int Timestamp { get; set; } = 0;
-
-        public String CompanyName { get; set; } = null;
-
-        public String UserName { get; set; } = null;
     }
 }

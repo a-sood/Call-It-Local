@@ -52,6 +52,7 @@
     <Compile Include="DataTypes\Database\CompanyDirectory\CompanyList.cs" />
     <Compile Include="DataTypes\Database\ReviewService\ReviewInstance.cs" />
     <Compile Include="DataTypes\Database\ReviewService\ReviewList.cs" />
+    <Compile Include="DataTypes\Database\ReviewService\ReviewWrapper.cs" />
     <Compile Include="DataTypes\Enums.cs" />
     <Compile Include="DataTypes\SharedData.cs" />
     <Compile Include="Debug\Debug.cs" />

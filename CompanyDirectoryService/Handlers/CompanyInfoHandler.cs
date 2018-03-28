@@ -22,13 +22,18 @@ namespace CompanyDirectoryService.Handlers
         /// is an expensive call, and there is no need to instantiate a new logger every time a handler is created.
         static ILog log = LogManager.GetLogger<GetCompanyInfoRequest>();
 
+        public async Task Handle(GetCompanyInfoRequest message, IMessageHandlerContext context)
+        {
+            await HandleAsync(message, context);
+        }
+
         /// <summary>
         /// Saves the echo to the database, reverses the data, and returns it back to the calling endpoint.
         /// </summary>
         /// <param name="message">Information about the echo</param>
         /// <param name="context">Used to access information regarding the endpoints used for this handle</param>
         /// <returns>The response to be sent back to the calling process</returns>
-        public Task Handle(GetCompanyInfoRequest message, IMessageHandlerContext context)
+        public Task HandleAsync(GetCompanyInfoRequest message, IMessageHandlerContext context)
         {
             //Search the company with the name
             CompanyDirectoryServiceDatabase db = CompanyDirectoryServiceDatabase.getInstance();
