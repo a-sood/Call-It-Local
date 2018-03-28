@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Messages.DataTypes.Database.ReviewService
 {
+    [Serializable]
     public partial class ReviewList
     {
-        List<ReviewInstance> List { get; set; }
+        public List<ReviewInstance> List { get; set; }
     }
 }

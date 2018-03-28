@@ -1,5 +1,4 @@
-﻿using Messages.DataTypes.Database.CompanyDirectory;
-using Messages.DataTypes.Database.ReviewService;
+﻿using Messages.DataTypes.Database.ReviewService;
 using System;
 
 namespace Messages.ServiceBusRequest.ReviewService.Responses

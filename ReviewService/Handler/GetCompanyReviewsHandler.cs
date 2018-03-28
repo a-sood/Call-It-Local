@@ -8,11 +8,15 @@ using System;
 using System.Threading.Tasks;
 using Messages.ServiceBusRequest.ReviewService.Requests;
 using Messages.ServiceBusRequest.ReviewService.Responses;
+using Messages.DataTypes.Database.ReviewService;
+using System.Net.Http;
+
 
 namespace ReviewService.Handler
 {
     class GetCompanyReviewsHandler : IHandleMessages<GetCompanyReviewsRequest>
     {
+        private static HttpClient client = new HttpClient();
         /// <summary>
         /// This is a class provided by NServiceBus. Its main purpose is to be use log.Info() instead of Messages.Debug.consoleMsg().
         /// When log.Info() is called, it will write to the console as well as to a log file managed by NServiceBus
@@ -27,19 +31,20 @@ namespace ReviewService.Handler
         /// <param name="message">Information about the echo</param>
         /// <param name="context">Used to access information regarding the endpoints used for this handle</param>
         /// <returns>The response to be sent back to the calling process</returns>
-        public Task Handle(GetCompanyReviewsRequest message, IMessageHandlerContext context)
+        public async Task Handle(GetCompanyReviewsRequest message, IMessageHandlerContext context)
         {
             //Search the company with the name
-            
-            
+
+            var rString = await client.GetStringAsync("http://35.230.15.112//Reviews/GetCompanyReviews/{\"companyName\":\"" + message.companyName +"\"}");
             /** ADD CODE HERE  --- Anil **/
-
-            ServiceBusResponse response = new ServiceBusResponse(false, "Demo");
-
+            ReviewList list = new ReviewList();
+            list.List = new List<ReviewInstance>();
+            GetCompanyReviewsResponse response = new GetCompanyReviewsResponse(false, "Demo", list);
+            
             /*******/
 
 
-            return context.Reply(response);
+            await context.Reply(response);
         }
     }
 }

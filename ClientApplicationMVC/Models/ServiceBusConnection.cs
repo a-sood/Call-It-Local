@@ -15,6 +15,8 @@ using System.Threading;
 using Messages.ServiceBusRequest.CompanyDirectory.Responses;
 using Messages.ServiceBusRequest.CompanyDirectory.Requests;
 using Messages.DataTypes.Database.CompanyDirectory;
+using Messages.ServiceBusRequest.ReviewService.Responses;
+using Messages.ServiceBusRequest.ReviewService.Requests;
 
 namespace ClientApplicationMVC.Models
 {
@@ -233,19 +235,33 @@ namespace ClientApplicationMVC.Models
 
         #endregion ConnectionFunctions
 
-        /** This needs to be done by us - Anil**/
+        /** Method to search the company list **/
         public CompanySearchResponse searchCompanyByName(CompanySearchRequest request)
         {
             send(request);
             return (CompanySearchResponse)readUntilEOF();
         }
-        /** This needs to be done by us - Anil**/
+
+        /** Method to get the company's info **/
         public GetCompanyInfoResponse getCompanyInfo(GetCompanyInfoRequest request)
         {
             send(request);
             return (GetCompanyInfoResponse)readUntilEOF();
         }
-        
+
+        /** Method to get company's reviews **/
+        public GetCompanyReviewsResponse getCompanyReviews(GetCompanyReviewsRequest request)
+        {
+            send(request);
+            return (GetCompanyReviewsResponse)readUntilEOF();
+        }
+
+        /** Method to save company's review **/
+        public ServiceBusResponse saveCompanyReview(SaveCompanyReviewRequest request)
+        {
+            send(request);
+            return readUntilEOF();
+        }
     }
 
     /// <summary>

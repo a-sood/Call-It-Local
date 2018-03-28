@@ -7,6 +7,8 @@ using Messages.ServiceBusRequest.CompanyDirectory.Requests;
 using System;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Messages.ServiceBusRequest.ReviewService.Requests;
+using Messages.ServiceBusRequest.ReviewService.Responses;
 
 namespace ClientApplicationMVC.Controllers
 {
@@ -87,8 +89,12 @@ namespace ClientApplicationMVC.Controllers
             GetCompanyInfoRequest infoRequest = new GetCompanyInfoRequest(new CompanyInstance(id));
             GetCompanyInfoResponse infoResponse = connection.getCompanyInfo(infoRequest);
             ViewBag.CompanyInfo = infoResponse.companyInfo;
-            string[] reviews = new string[] { "Review 1", "Review 2", "Review 3", "Review 4" };
-            ViewBag.Reviews = reviews;
+
+            GetCompanyReviewsRequest reviewRequest = new GetCompanyReviewsRequest(id);
+            GetCompanyReviewsResponse reviewResponse = connection.getCompanyReviews(reviewRequest);
+
+            //string[] reviews = new string[] { "Review 1", "Review 2", "Review 3", "Review 4" };
+            ViewBag.Reviews = reviewResponse.List.List.ToArray();
 
             return View("DisplayCompany");
         }

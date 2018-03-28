@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Messages.ServiceBusRequest.ReviewService.Requests
 {
+    [Serializable]
     public class SaveCompanyReviewRequest : ReviewServiceRequest
     {
         public SaveCompanyReviewRequest(ReviewInstance review)

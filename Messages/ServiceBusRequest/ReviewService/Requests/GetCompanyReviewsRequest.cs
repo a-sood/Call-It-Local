@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Messages.ServiceBusRequest.ReviewService.Requests
 {
+    [Serializable]
     public class GetCompanyReviewsRequest : ReviewServiceRequest
     {
         public GetCompanyReviewsRequest(string companyName)
