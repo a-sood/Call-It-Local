@@ -4,41 +4,66 @@
 
 <h2 id="CompanyNameDisplay">@ViewBag.CompanyName</h2>
 
-<br />
-<p>Email: @ViewBag.CompanyInfo.email</p>
-<br />
-<p>Phone Number: @ViewBag.CompanyInfo.phoneNumber</p>
-<br />
-<p>@ViewBag.CompanyName can be found at these locations:</p>
-<br />
-@foreach (string location in ViewBag.CompanyInfo.locations)
-{
-    <p style="padding-left:4em;">@location</p>
-    <br />
-}
-    <h4>@ViewBag.CompanyName's Reviews</h4>
-    <div style="height:300px; overflow-y: scroll; overflow-x:hidden; padding-left:1em; padding-right:1em;">
-        <br />
-        @foreach (string review in ViewBag.Reviews)
-        {
-            <div style="border-radius:5px; box-shadow:2px 2px 2px 2px black; background-color:gainsboro;">
-                <p style="padding-left:1em; font-size:16px;">Reviewer#7</p>
-                <p style="padding-left:2em;">stars: 4/5</p>
-                <p style="padding-left:2em;">description: @review</p>
-                <p style="padding-left:2em;">June 6 1978</p>
-            </div>
-            <br />
-        }
+<hr />
+
+<div class="row">
+    <div class="col-md-2">
+        <b style="font-size:15px">Email:</b>
     </div>
-    <input type="button" value="Write Review" onclick="location.href='@Url.Action("ReviewCompany", "CompanyListings",  new { id = ViewBag.CompanyName } )'" />
-    <br />
-<div style="height:100px">
-    <h4>Start a conversation with @ViewBag.CompanyName</h4>
-    <div style="width:400px; float:left">
-        <textarea class="messagetextarea" id="textUserMessage" placeholder="Enter your message here." rows="3"></textarea>
-    </div>
-    <div style="float:left">
-        <button class="sendbutton" id="SendMessageButton">Send</button>
+    <div class="col-md-2">
+        <span style="font-size: 15px;">@ViewBag.CompanyInfo.email</span>
     </div>
 </div>
-<br /><br />
+<br />
+<div class="row">
+    <div class="col-md-2">
+        <b style="font-size:15px">Phone Number:</b>
+    </div>
+    <div class="col-md-1">
+        <span style="font-size: 15px;">@ViewBag.CompanyInfo.phoneNumber</span>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <b style="font-size:15px">@ViewBag.CompanyName can be found at these locations:</b>
+    </div>
+</div>
+<br />
+
+@foreach (string location in ViewBag.CompanyInfo.locations)
+{
+    <div class="row">
+        <div class="col-md-8 col-md-offset-1"> &#9679 @location</div>
+    </div>
+}
+<hr />
+
+<h3>@ViewBag.CompanyName's Reviews</h3>
+<div style="height:300px; border-style:outset; overflow-y: scroll; overflow-x:hidden; padding-left:1em; padding-right:1em;">
+    <br />
+    @foreach (string review in ViewBag.Reviews)
+    {
+        <div style="border-radius:5px; box-shadow:2px 2px 2px 2px black; background-color:gainsboro;">
+            <p style="padding-left:1em; font-size:16px;">Reviewer#7</p>
+            <p style="padding-left:2em;">stars: 4/5</p>
+            <p style="padding-left:2em;">description: @review</p>
+            <p style="padding-left:2em;">June 6 1978</p>
+        </div>
+        <br />
+    }
+</div>
+<br />
+
+<input class="btn btn-default" type="button" value="Write Review" onclick="location.href='@Url.Action("ReviewCompany", "CompanyListings",  new { id = ViewBag.CompanyName } )'" />
+<hr />
+
+<h3>Start a conversation with @ViewBag.CompanyName</h3>
+    <div float:left">
+        <textarea style="height:100px; width:500px;"  class="messagetextarea" id="textUserMessage" placeholder="Enter your message here."></textarea>
+    </div>
+    <br />
+    <button class="sendbutton btn btn-default"  id="SendMessageButton">Send</button>
+    
+<hr />
+<br />
