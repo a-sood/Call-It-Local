@@ -104,7 +104,6 @@ namespace ClientApplicationMVC.Controllers
             }
 
             ViewBag.Reviews = reviewResponse.List.List.ToArray();
-
             return View("DisplayCompany");
         }
 
@@ -161,7 +160,7 @@ namespace ClientApplicationMVC.Controllers
             ReviewInstance review = new ReviewInstance(companyName, reviewContent, stars, time.ToString(), username);
             SaveCompanyReviewRequest saveRequest = new SaveCompanyReviewRequest(review);
             ServiceBusResponse response = connection.saveCompanyReview(saveRequest);
-            
+            ViewBag.companyName = companyName;
             ViewBag.Response = response.response;
             return View("WriteReview");
         }

@@ -2,24 +2,46 @@
 @{
     ViewBag.Title = "Write Review";
 }
+<style>
+    input[type=select], select {
+        border-radius: 4px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        padding: 6px;
+        width: 80px;
+    }
+</style>
 
 <h2>Write a Review for @ViewBag.CompanyName</h2>
+<hr />
 
-    <select id="selector"; name="Stars" >
-        <option>5 Stars</option>
-        <option>4 Stars</option>
-        <option>3 Stars</option>
-        <option>2 Stars</option>
-        <option>1 Star</option>
-    </select>
 
-<div style="height:100px">
-    <div style="width:400px; float:left">
-        <textarea value="@ViewBag.reviewText" placeholder="Enter your review here" rows="3" ></textarea>
+<form action="/CompanyListings/PublishReview">
+    <div class="row">
+        <div class="col-md-10">
+            <textarea style="width:350px; height:100px" name="reviewContent" value="@ViewBag.reviewText" placeholder="Enter your review here" rows="3"></textarea>
+        </div>
     </div>
-    <div style="float:left">
-        <input type="button" value="Publish" onclick="location.href='@Url.Action("PublishReview", "CompanyListings",  new { companyName = ViewBag.CompanyName, reviewContent = "REVIEW CONTENT HERE", stars = 5 } )'" />
+    <br/>
+    <div class="row">
+        <div style="float:left" class="col-md-1">
+            <select id="selector" ; name="stars">
+                <option value="5">5 Stars</option>
+                <option value="4">4 Stars</option>
+                <option value="3">3 Stars</option>
+                <option value="2">2 Stars</option>
+                <option value="1">1 Star</option>
+            </select>
+        </div>
     </div>
-</div>
+    <br />
+    <div class="row">
+        <div style="float:left" class="col-md-1">
+            <input type="hidden" name="companyName" value=@ViewBag.CompanyName>
+            <input class="btn btn-default" type="submit" value="Publish" />
+        </div>
+    </div>
+</form>
+
 <p style="font-size:20px;">@ViewBag.Response</p>
 <br />
