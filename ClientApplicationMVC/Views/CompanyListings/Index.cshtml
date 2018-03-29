@@ -1,10 +1,11 @@
-﻿
-<!--
+﻿<!--
     This page will be used to search for and display Company names
 -->
 @{
     ViewBag.Title = "Index";
 }
+
+<script type="text/javascript" src="~/Scripts/ReviewService/ReviewService.js"></script>
 
 <h2>Search for companies by name</h2>
 <style>
@@ -18,30 +19,34 @@
 </style>
 
 
-@using (Html.BeginForm("Search", "CompanyListings"))
+@using (Html.BeginForm("Search", "CompanyListings", FormMethod.Get, new { id = "searchForm", onsubmit = "return validateSearch()" }))
 {
     <p>@ViewBag.Message</p>
     <br />
 
-    @Html.TextBox("textCompanyName")
-    <input type="submit" value="Search" class="btn btn-default"/>
+    @Html.TextBox("textCompanyName", null, new { id = "searchTextBox" })
+    <input type="submit" value="Search" class="btn btn-default" />
     <br /><br /><br />
 
-    
+
 }
+
 @if (ViewBag.Companylist != null)
 {
     if (ViewBag.Companylist.companyNames.Length == 0)
     {
-        <p>Your search did not retrun any results. Please try again.</p>
+        <div id="searchResult" style="color:#FF0000">Your search did not retrun any results. Please try again.</div>
     }
     else
     {
-        <p style="font-size:larger">Results:</p> <br />
+        <h3>Results:</h3>
+        <br />
         foreach (string item in ViewBag.Companylist.companyNames)
         {
-            @Html.ActionLink(item, "DisplayCompany/" + item, "CompanyListings")
-            <br/>
+            @Html.ActionLink(item, "DisplayCompany", "CompanyListings", null, new { id = item})
+            <br />
         }
     }
 }
+
+<div id="searchError" style="color:#FF0000"></div>
