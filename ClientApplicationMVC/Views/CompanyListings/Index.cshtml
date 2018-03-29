@@ -43,7 +43,7 @@
         <br />
         foreach (string item in ViewBag.Companylist.companyNames)
         {
-            @Html.ActionLink(item, "DisplayCompany/" +  item, "CompanyListings")
+            @Html.ActionLink(item, "DisplayCompany", "CompanyListings", new { id = item}, null)
             <br />
         }
     }

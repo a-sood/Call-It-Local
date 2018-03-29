@@ -144,6 +144,12 @@ namespace ClientApplicationMVC.Controllers
             {
                 return RedirectToAction("Index", "Authentication");
             }
+            if ("".Equals(reviewContent))
+            {
+                ViewBag.CompanyName = companyName;
+                ViewBag.Error = "*Please Enter a Description of Your Review";
+                return View("WriteReview");
+            }
             if ("".Equals(companyName) || "".Equals(stars))
             {
                 return View("Index");
