@@ -95,7 +95,14 @@ namespace ClientApplicationMVC.Controllers
             GetCompanyReviewsRequest reviewRequest = new GetCompanyReviewsRequest(id);
             GetCompanyReviewsResponse reviewResponse = connection.getCompanyReviews(reviewRequest);
 
-            //string[] reviews = new string[] { "Review 1", "Review 2", "Review 3", "Review 4" };
+            foreach(ReviewInstance review in reviewResponse.List.List)
+            {
+                int timestamp = (int.Parse(review.TimeStamp));
+                DateTime dt = new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(timestamp).ToLocalTime();
+                string formattedDate = dt.ToString("hh:mm tt dd/MM/yyyy");
+                review.TimeStamp = formattedDate;
+            }
+
             ViewBag.Reviews = reviewResponse.List.List.ToArray();
 
             return View("DisplayCompany");

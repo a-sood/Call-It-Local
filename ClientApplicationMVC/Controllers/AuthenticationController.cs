@@ -109,8 +109,8 @@ namespace ClientApplicationMVC.Controllers
             /** END OF NEW CODE **/
 
             if(response.result) {
-                ViewBag.userCreationSuccess = "Successfully created the new user. You can log in using your new credentials now.";
-                return View("Index");
+                ViewBag.userCreationSuccess = "Successfully created the new user. You are logged in now.";
+                return View("~/Views/Home/Index.cshtml");
             }
             else {
                 ViewBag.userCreationFailure = "Could not create the new user. " + response.response;
