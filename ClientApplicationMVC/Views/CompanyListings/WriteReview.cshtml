@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = "Write Review";
 }
+<script type="text/javascript" src="~/Scripts/ReviewService/ReviewService.js"></script>
+
 <style>
     input[type=select], select {
         border-radius: 4px;
@@ -16,14 +18,14 @@
 <hr />
 
 
-<form action="/CompanyListings/PublishReview">
+<form id="reviewForm" action="/CompanyListings/PublishReview" onsubmit="return validateReview()">
     <div class="row">
         <div class="col-md-10">
-            <textarea style="width:350px; height:100px" name="reviewContent" value="@ViewBag.reviewText" placeholder="Enter your review here" rows="3"></textarea>
+            <textarea id="reviewTextBox" style="width:450px; height:200px" name="reviewContent" value="@ViewBag.reviewText" placeholder="Enter your review here" rows="3"></textarea>
             <p style="font-size:16px; color:red">@ViewBag.Error</p>
         </div>
     </div>
-    <br/>
+    <br />
     <div class="row">
         <div style="float:left" class="col-md-1">
             <select id="selector" ; name="stars">
@@ -43,6 +45,8 @@
         </div>
     </div>
 </form>
+
+<div id="reviewError" style="color:#FF0000"></div>
 
 <p style="font-size:20px;">@ViewBag.Response</p>
 <br />
