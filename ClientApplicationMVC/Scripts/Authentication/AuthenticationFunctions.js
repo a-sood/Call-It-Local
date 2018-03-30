@@ -52,7 +52,8 @@ function runthis() {
     var email = createAccountForm.email.value;
     var atpos = email.indexOf("@");
     var dotpos = email.lastIndexOf(".");
-    var phoneNum = /^\(?([0-9]{3})\)?[-]?([0-9]{3})[-]?([0-9]{4})$/;
+    var phoneNum = /^([0-9]{3})[-]?([0-9]{3})[-]?([0-9]{4})$/;
+    
 
     if (createAccountForm.email.value === "") {
         document.getElementById("emailError").innerHTML = "Please enter an email";
