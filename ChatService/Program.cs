@@ -47,7 +47,10 @@ namespace ChatService
             //Instructs the endpoint to use Microsoft Message Queuing 
             var transport = endpointConfiguration.UseTransport<MsmqTransport>();
             //This variable is used to configure how messages are routed. Using this, you may set the default reciever of a particular command, and/or subscribe to any number of events
-            var routing = transport.Routing();
+            //var routing = transport.Routing();
+
+            //Register to the AsIsEcho event published by the Authentication endpoint
+            //routing.RegisterPublisher(typeof(AsIsEchoEvent), "Authentication");
 
             //Start the endpoint with the configuration defined above. It should be noted that any changes made to the endpointConfiguration after an endpoint is instantiated will not apply to any endpoints that have already been instantiated
             var endpointInstance = await Endpoint.Start(endpointConfiguration).ConfigureAwait(false);
