@@ -48,8 +48,8 @@
     <Compile Include="Database\AbstractDatabase.cs" />
     <Compile Include="Database\Column.cs" />
     <Compile Include="Database\Table.cs" />
-    <Compile Include="DataTypes\Chat\ChatHistory.cs" />
-    <Compile Include="DataTypes\Chat\ChatMessage.cs" />
+    <Compile Include="DataTypes\Database\Chat\ChatHistory.cs" />
+    <Compile Include="DataTypes\Database\Chat\ChatMessage.cs" />
     <Compile Include="DataTypes\Database\CompanyDirectory\CompanyInstance.cs" />
     <Compile Include="DataTypes\Database\CompanyDirectory\CompanyList.cs" />
     <Compile Include="DataTypes\Database\ReviewService\ReviewInstance.cs" />

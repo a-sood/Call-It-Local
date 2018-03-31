@@ -17,6 +17,9 @@ using Messages.ServiceBusRequest.CompanyDirectory.Requests;
 using Messages.DataTypes.Database.CompanyDirectory;
 using Messages.ServiceBusRequest.ReviewService.Responses;
 using Messages.ServiceBusRequest.ReviewService.Requests;
+using Messages.ServiceBusRequest.Chat.Responses;
+using Messages.ServiceBusRequest.Chat.Requests;
+using Messages.DataTypes.Database.Chat;
 
 namespace ClientApplicationMVC.Models
 {
@@ -258,6 +261,28 @@ namespace ClientApplicationMVC.Models
 
         /** Method to save company's review **/
         public ServiceBusResponse saveCompanyReview(SaveCompanyReviewRequest request)
+        {
+            send(request);
+            return readUntilEOF();
+        }
+
+        /**************** CHAT SERVICE METHODS ******************/
+        /** Method to get all the chat contacts **/
+        public GetChatContactsResponse getAllChatContacts(GetChatContactsRequest request)
+        {
+            send(request);
+            return (GetChatContactsResponse)readUntilEOF();
+        }
+
+        /** Method to get the chat history **/
+        public GetChatHistoryResponse getChatHistory(GetChatHistoryRequest request)
+        {
+            send(request);
+            return (GetChatHistoryResponse)readUntilEOF();
+        }
+
+        /** Method to send the chat message **/
+        public ServiceBusResponse sendChatMessage(SendMessageRequest request)
         {
             send(request);
             return readUntilEOF();
