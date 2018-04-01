@@ -3,7 +3,7 @@
 <script type="text/javascript" src="~/Scripts/CompanyListings/CompanyListingsFunctions.js"></script>
 
 <h2 id="CompanyNameDisplay">@ViewBag.CompanyName</h2>
-
+<div class="hidden" id="companyUserName">@ViewBag.CompanyInfo.userName</div> 
 <hr />
 
 <div class="row">
@@ -68,7 +68,7 @@
 
 <br />
 
-<button class="sendbutton btn btn-default" id="SendMessageButton">Send</button>
+<button class="btn btn-default" id="SendMessageButton">Send</button>
 
 <hr />
 <br />

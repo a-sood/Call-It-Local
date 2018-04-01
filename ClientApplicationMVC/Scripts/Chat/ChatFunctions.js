@@ -11,7 +11,7 @@ $(function () {//This function is executed after the entire page is loaded
     });
     var firstChatInstanceBox = $("#ChatInstancesList").children().first();
 
-    firstChatInstanceBox.css("background", "rgba(255, 255, 255, 0.1)");
+    firstChatInstanceBox.css("background", "rgba(255, 0, 0, 0.1)");
     currentSelectedChat = firstChatInstanceBox.attr("id");
 });
 
@@ -21,7 +21,7 @@ $(function () {//This function is executed after the entire page is loaded
  */
 function sendMessage() {
     var userData = $("#textUserMessage").val();
-    if ($.trim(userData) == "") {
+    if ($.trim(userData) === "") {
         return;
     }
     $("#textUserMessage").val("");//Clear the chat box
@@ -41,7 +41,7 @@ function sendMessage() {
  * This function adds the given text to the user and indicates the sender of the text.
  * @param {string} text - The content of the message
  * @param {string} sender - The username of the sender. If it is "You" it will be a different colour.
- */s
+ */
 function addTextToChatBox(text, sender) {
     var newMessageHtml =
         "<p class='message'>" +
@@ -66,7 +66,7 @@ function addTextToChatBox(text, sender) {
  * When a user selects their chat history with a specific user, this function will load and display the chat history.
  */
 function chatInstanceSelected() {
-    if ($(this).attr("id") == currentSelectedChat) {
+    if ($(this).attr("id") === currentSelectedChat) {
         return;
     }
 
@@ -74,7 +74,7 @@ function chatInstanceSelected() {
 
     currentSelectedChat = $(this).attr("id");
 
-    $("#" + currentSelectedChat).css("background", "rgba(255, 255, 255, 0.1)");
+    $("#" + currentSelectedChat).css("background", "rgba(255, 0, 0, 0.1)");
 
     $.ajax({
         method: "GET",

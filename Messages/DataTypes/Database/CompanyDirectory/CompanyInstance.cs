@@ -22,8 +22,9 @@ namespace Messages.DataTypes.Database.CompanyDirectory
         /// <param name="phoneNumber">The phone number of the company</param>
         /// <param name="email">The email of the company</param>
         /// <param name="locations">An array of locations the company resides</param>
-        public CompanyInstance(string companyName, string phoneNumber, string email, string[] locations)
+        public CompanyInstance(string userName, string companyName, string phoneNumber, string email, string[] locations)
         {
+            this.userName = userName;
             this.companyName = companyName;
             this.phoneNumber = phoneNumber;
             this.email = email;
@@ -37,6 +38,8 @@ namespace Messages.DataTypes.Database.CompanyDirectory
     /// </summary>
     public partial class CompanyInstance
     {
+
+        public string userName { get; set; } = null;
         /// <summary>
         /// The name of the company, corresponds to the username of the companies account
         /// </summary>

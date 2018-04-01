@@ -14,11 +14,11 @@ $(function () {
 function validateAndSendMessage() {
 
     var userData = $("#textUserMessage").val();
-    if ($.trim(userData) == "") {
+    if ($.trim(userData) === "") {
         return;
     }
 
-    var recipient = $("#CompanyNameDisplay").text();
+    var recipient = $("#companyUserName").text();
     var timestamp = Math.round((new Date()).getTime() / 1000);
 
     $.ajax({

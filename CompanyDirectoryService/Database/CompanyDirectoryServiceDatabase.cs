@@ -58,9 +58,9 @@ namespace CompanyDirectoryService.Database
                 }
                 if (openConnection() == true)
                 {
-                    string query = @"INSERT INTO company(companyName, phonenumber, email)" +
+                    string query = @"INSERT INTO company(companyName, phonenumber, email, username)" +
                         @"VALUES('" + account.name +
-                        @"', '" + account.phonenumber + @"', '" + account.email + @"');";
+                        @"', '" + account.phonenumber + @"', '" + account.email + @"', '" + account.username + @"');";
 
                     MySqlCommand command = new MySqlCommand(query, connection);
                     command.ExecuteNonQuery();
@@ -125,7 +125,7 @@ namespace CompanyDirectoryService.Database
             CompanyInstance result = null;
             if (openConnection() == true)
             {
-                string companyName = null, phoneNumber = null, email = null;
+                string companyName = null, phoneNumber = null, email = null, userName = null;
                 ArrayList locations = new ArrayList();
 
                 string query = @"SELECT * FROM company " +
@@ -136,6 +136,7 @@ namespace CompanyDirectoryService.Database
                
                 if (reader.Read())
                 {
+                     userName = (string)reader.GetString("username");
                      companyName = (string)reader.GetString("companyName");
                      phoneNumber = (string)reader.GetString("phonenumber");
                      email = (string)reader.GetString("email");
@@ -152,7 +153,7 @@ namespace CompanyDirectoryService.Database
                     locations.Add(reader1.GetString("location"));
                 }
 
-                result = new CompanyInstance(companyName, phoneNumber, email, (string[])locations.ToArray(typeof(string)));
+                result = new CompanyInstance(userName, companyName, phoneNumber, email, (string[])locations.ToArray(typeof(string)));
                 reader1.Close();
                 closeConnection();
             }
@@ -227,6 +228,15 @@ public partial class CompanyDirectoryServiceDatabase : AbstractDatabase
                     new Column
                     (
                             "email", "VARCHAR(100)",
+                            new string[]
+                            {
+                                "NOT NULL",
+                                "UNIQUE"
+                            }, false
+                     ),
+                    new Column
+                    (
+                            "username", "VARCHAR(100)",
                             new string[]
                             {
                                 "NOT NULL",

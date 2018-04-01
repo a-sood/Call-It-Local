@@ -1,5 +1,4 @@
 ﻿using ClientApplicationMVC.Models;
-
 using Messages.NServiceBus.Commands;
 using Messages.DataTypes;
 using Messages.ServiceBusRequest;
