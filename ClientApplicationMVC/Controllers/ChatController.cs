@@ -65,6 +65,7 @@ namespace ClientApplicationMVC.Controllers
 
             ViewBag.ChatInstances = contactsResponse.responseData.contactNames;
             ViewBag.DisplayedChatHistory = firstDisplayedChatHistory;
+            ViewBag.username = Globals.getUser();
 
             return View();
         }
