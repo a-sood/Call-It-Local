@@ -26,7 +26,7 @@ $(function () {//This function is executed after the entire page is loaded
  */
 function sendMessage() {
     var userData = $("#textUserMessage").val();
-    if ($.trim(userData) === "") {
+    if ($.trim(userData) === "" || currentSelectedChat == null) {
         return;
     }
 
@@ -45,9 +45,13 @@ function sendMessage() {
         message: userData
     });
 
-    /** USE SIGNALR TO UPDATE RECIPIENTS CHAT IF THEY ARE LOOKING AT IT **/
-    myConnection.server.sendMessage(recipient, userData);
+    /** USE SIGNALR TO UPDATE RECIPIENTS CHAT (IF THEY ARE LOOKING AT IT) **/
+    updateRealtimeChat(recipient, userData);
+}
 
+/** USE SIGNALR TO UPDATE RECIPIENTS CHAT (IF THEY ARE LOOKING AT IT) **/
+function updateRealtimeChat(recipient, userData) {
+    myConnection.server.sendMessage(recipient, userData);
 }
 
 /**
@@ -66,7 +70,23 @@ function addTextToChatBox(text, sender) {
     else if (currentSelectedChat === sender) {
         newMessageHtml += " style='color:aqua;'>" + sender + ": ";
     }
-    else { // Message Thread Not Focused, Show a star to indicate it has a new message
+    else if (($("#" + sender).length == 0)) { // If there is no chat contact with that user
+        // Add the sender to your message list
+        $("#ChatInstancesList").append(
+            '<div class="chatInstanceBox" id=' + sender + '>' + 
+                '<div style="line-height:50px;">' +
+                    '<p class="chatInstanceCompanyName" id=' + sender.concat("_text") + '>' + sender + '</p>' +
+                '</div>' +
+            '</div >');
+
+        // Show star for new message
+        $("#" + sender + "_text").text(sender + "*");
+
+        // Add event listeners
+        $("#" + sender).click(chatInstanceSelected);
+        return;
+    }
+    else { // Message thread not focused, show a star to indicate it has a new message
         $("#" + sender + "_text").text(sender + "*");
         return; 
     }
@@ -87,11 +107,16 @@ function chatInstanceSelected() {
         return;
     }
 
+    // Reset Background
     $("#" + currentSelectedChat).css("background", "initial");
-    $("#" + currentSelectedChat + "_text").text(currentSelectedChat);
 
+    // Set to newly Selected Contact
     currentSelectedChat = $(this).attr("id");
 
+    // Remove Star
+    $("#" + currentSelectedChat + "_text").text(currentSelectedChat);
+
+    // Change Color
     $("#" + currentSelectedChat).css("background", "rgba(255, 0, 0, 0.1)");
 
     $.ajax({
@@ -104,7 +129,8 @@ function chatInstanceSelected() {
             $("#ConversationDisplayArea").html(data);
         }
     });
-}
+}
+
 /**
 * To connect client to the SignalR chat hub on Server side
 */
@@ -124,4 +150,5 @@ function connectToChatHub() {
     $.connection.hub.start().done(function () {
         $("#status_msg").text("Status: Connected");
         $("#status_msg").css("color", "green");
-    });}
+    });
+}

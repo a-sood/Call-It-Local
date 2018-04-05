@@ -104,6 +104,7 @@ namespace ClientApplicationMVC.Controllers
             }
 
             ViewBag.Reviews = reviewResponse.List.List.ToArray();
+            ViewBag.username = Globals.getUser();
             return View("DisplayCompany");
         }
 

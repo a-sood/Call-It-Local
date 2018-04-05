@@ -30,6 +30,8 @@ function validateAndSendMessage() {
             message: userData
         },
         success: function () {
+            connectToChatHub();                      // From ChatFunctions.js, to update with SignalR
+            updateRealtimeChat(recipient, userData); // From ChatFunctions.js, to update with SignalR
             window.location = "/Chat/Index";
         }
     });

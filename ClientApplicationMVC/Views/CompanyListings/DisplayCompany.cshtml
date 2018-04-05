@@ -3,8 +3,10 @@
 <script type="text/javascript" src="~/Scripts/CompanyListings/CompanyListingsFunctions.js"></script>
 
 <h2 id="CompanyNameDisplay">@ViewBag.CompanyName</h2>
-<div class="hidden" id="companyUserName">@ViewBag.CompanyInfo.userName</div> 
+<div class="hidden" id="companyUserName">@ViewBag.CompanyInfo.userName</div>
 <hr />
+
+<textarea id="username_title" disabled hidden>@ViewBag.username</textarea>
 
 <div class="row">
     <div class="col-md-2">
@@ -55,7 +57,7 @@
     }
 </div>
 
-<br/>
+<br />
 <input class="btn btn-default" type="button" value="Write Review" onclick="location.href='@Url.Action("ReviewCompany", "CompanyListings",  new { id = ViewBag.CompanyName } )'" />
 <hr />
 
@@ -73,3 +75,10 @@
 <hr />
 <br />
 
+@* SignalR and JS Scripts *@
+@section scripts{
+    <script type="text/javascript" src="~/Scripts/Chat/ChatFunctions.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.signalR-2.2.3.min.js"></script>
+    <script type="text/javascript" src="~/signalr/hubs"></script>
+}
