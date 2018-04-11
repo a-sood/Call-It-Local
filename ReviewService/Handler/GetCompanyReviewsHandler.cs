@@ -42,7 +42,7 @@ namespace ReviewService.Handler
                 Debug.consoleMsg("GET REVIEWS: " + message.companyName);
                 //Search the company with the name
 
-                var rString = await client.GetStringAsync("http://35.230.15.112//Reviews/GetCompanyReviews/{\"companyName\":\"" + message.companyName + "\"}");
+                var rString = await client.GetStringAsync("http://35.197.71.206//Reviews/GetCompanyReviews/{\"companyName\":\"" + message.companyName + "\"}");
                 Debug.consoleMsg("RESPONSE: " + rString);
 
                 var serializer = new JavaScriptSerializer();

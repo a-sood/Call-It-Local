@@ -125,7 +125,7 @@ function runthis() {
         document.getElementById("addressError").innerHTML = "Please enter an address";
         response = false;
     }
-    else if (createAccountForm.address.value.match(/[^\w .-]/)) {
+    else if (createAccountForm.address.value.match(/[^\w .,-]/)) {
         document.getElementById("addressError").innerHTML = "You can not use invalid characters for address";
         response = false;
     }

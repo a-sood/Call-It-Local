@@ -11,6 +11,8 @@ using Messages.ServiceBusRequest.ReviewService.Requests;
 using Messages.ServiceBusRequest.ReviewService.Responses;
 using Messages.DataTypes.Database.ReviewService;
 using Messages.ServiceBusRequest;
+using Messages.ServiceBusRequest.WeatherService.Requests;
+using Messages.ServiceBusRequest.WeatherService.Responses;
 
 namespace ClientApplicationMVC.Controllers
 {
@@ -95,7 +97,39 @@ namespace ClientApplicationMVC.Controllers
             GetCompanyReviewsRequest reviewRequest = new GetCompanyReviewsRequest(id);
             GetCompanyReviewsResponse reviewResponse = connection.getCompanyReviews(reviewRequest);
 
-            foreach(ReviewInstance review in reviewResponse.List.List)
+
+            /* Making the weather request to get the key for the address of the first location */
+            GetCityKeyRequest keyRequest = new GetCityKeyRequest(infoResponse.companyInfo.locations[0]);
+            ServiceBusResponse keyResponse = connection.getCityKey(keyRequest);
+
+            /* Making the weather request to get current conditions of the key extracted above */
+            if(keyResponse.result)
+            {
+                //Key extracted, make the call for the current conditions
+                GetWeatherRequest weatherRequest = new GetWeatherRequest(keyResponse.response);
+                GetWeatherResponse weatherResponse = connection.getWeather(weatherRequest);
+                if (weatherResponse.result)
+                {
+                    //Weather response successfully received
+                    ViewBag.WeatherIcon = "~/Content/Images/" + weatherResponse.Weather.WeatherIcon + ".png";
+                    ViewBag.WeatherText = weatherResponse.Weather.WeatherText;
+                    ViewBag.City = infoResponse.companyInfo.locations[0];
+                    ViewBag.Temp = weatherResponse.Weather.Temperature.Metric.Value;
+                }
+                else
+                {
+                    //Weather response not received
+                    ViewBag.City = "Could not pull the weather.";
+                }
+            }
+            else
+            {
+                //No key was found, so don't make this call
+                ViewBag.City = "City not found.";
+            }
+
+
+            foreach (ReviewInstance review in reviewResponse.List.List)
             {
                 int timestamp = (int.Parse(review.TimeStamp));
                 DateTime dt = new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(timestamp).ToLocalTime();

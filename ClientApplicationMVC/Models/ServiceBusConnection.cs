@@ -20,6 +20,8 @@ using Messages.ServiceBusRequest.ReviewService.Requests;
 using Messages.ServiceBusRequest.Chat.Responses;
 using Messages.ServiceBusRequest.Chat.Requests;
 using Messages.DataTypes.Database.Chat;
+using Messages.ServiceBusRequest.WeatherService.Requests;
+using Messages.ServiceBusRequest.WeatherService.Responses;
 
 namespace ClientApplicationMVC.Models
 {
@@ -287,6 +289,19 @@ namespace ClientApplicationMVC.Models
             send(request);
             return readUntilEOF();
         }
+
+        /**** Weather Service Methods ****/
+        public ServiceBusResponse getCityKey(GetCityKeyRequest request)
+        {
+            send(request);
+            return readUntilEOF();
+        }
+        public GetWeatherResponse getWeather(GetWeatherRequest request)
+        {
+            send(request);
+            return (GetWeatherResponse)readUntilEOF();
+        }
+
     }
 
     /// <summary>

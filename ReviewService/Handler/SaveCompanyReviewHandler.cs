@@ -58,7 +58,7 @@ namespace ReviewService.Handler
 
                 StringContent post_content = new StringContent(json_review, Encoding.UTF8, "application/json");
 
-                var httpresponse = await client.PostAsync("http://35.230.15.112/Reviews/SaveCompanyReview/", post_content);
+                var httpresponse = await client.PostAsync("http://35.197.71.206/Reviews/SaveCompanyReview/", post_content);
                 var responseString = await httpresponse.Content.ReadAsStringAsync();
 
                 if (httpresponse.IsSuccessStatusCode)
