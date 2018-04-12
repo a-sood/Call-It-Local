@@ -39,7 +39,7 @@ namespace WeatherService.Handler
             Debug.consoleMsg("GET CuRRENT CONDITIONS FOR THIS KEY: " + message.cityKey);
             try
             {
-                var rString = await client.GetStringAsync("http://dataservice.accuweather.com/currentconditions/v1/" + message.cityKey + "?apikey=HuJUKHT8RNpbLRQc59J0YueEkurRjc9c");
+                var rString = await client.GetStringAsync("http://dataservice.accuweather.com/currentconditions/v1/" + message.cityKey + "?apikey=HuJUKHT8RNpbLRQc59J0YueEkurRjc9c&details=true");
                 Debug.consoleMsg("RESPONSE: " + rString);
                 List<WeatherInstance> weatherList = JsonConvert.DeserializeObject<List<WeatherInstance>>(rString);
                 if (weatherList.Count > 0)

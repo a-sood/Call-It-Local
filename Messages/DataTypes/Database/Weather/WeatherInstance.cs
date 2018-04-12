@@ -15,12 +15,21 @@ namespace Messages.DataTypes.Database.Weather
         public int WeatherIcon { get; set; }
         public bool IsDayTime { get; set; }
         public Temperature Temperature { get; set; }
+
+        public RealFeelTemperature RealFeelTemperature { get; set; }
         public string MobileLink { get; set; }
         public string Link { get; set; }
     }
 
     [Serializable]
     public class Temperature
+    {
+        public Metric Metric { get; set; }
+        public Imperial Imperial { get; set; }
+    }
+
+    [Serializable]
+    public class RealFeelTemperature
     {
         public Metric Metric { get; set; }
         public Imperial Imperial { get; set; }

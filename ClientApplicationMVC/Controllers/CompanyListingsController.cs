@@ -115,6 +115,7 @@ namespace ClientApplicationMVC.Controllers
                     ViewBag.WeatherText = weatherResponse.Weather.WeatherText;
                     ViewBag.City = infoResponse.companyInfo.locations[0];
                     ViewBag.Temp = weatherResponse.Weather.Temperature.Metric.Value;
+                    ViewBag.RealFeel = weatherResponse.Weather.RealFeelTemperature.Metric.Value;
                 }
                 else
                 {
