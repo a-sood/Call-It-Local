@@ -37,7 +37,8 @@ namespace WeatherService.Handler
             //Search the company with the name
             try
             {
-                var rString = await client.GetStringAsync("http://dataservice.accuweather.com/locations/v1/cities/search?apikey=HuJUKHT8RNpbLRQc59J0YueEkurRjc9c&q=" + message.address);
+                //var rString = await client.GetStringAsync("http://dataservice.accuweather.com/locations/v1/cities/search?apikey=HuJUKHT8RNpbLRQc59J0YueEkurRjc9c&q=" + message.address);
+                var rString = await client.GetStringAsync("http://dataservice.accuweather.com/locations/v1/cities/search?apikey=WBa1oSdQcnmCV8CoeT7yQVK8ggY3y8BQ&q=" + message.address);
                 Debug.consoleMsg("RESPONSE: " + rString);
                 dynamic x = JArray.Parse(rString);
                 keyReturn = x[0].Key;
